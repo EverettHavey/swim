@@ -50,6 +50,15 @@
             resize: vertical;
             min-height: 80px;
         }
+        .form-group .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-group .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
         .form-group button {
             display: block;
             width: 100%;
@@ -115,128 +124,4 @@
             <form id="recordSwimForm">
                 <div class="form-group">
                     <label for="swimDate">Date of Swim:</label>
-                    <input type="date" id="swimDate" name="swimDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="startTime">Start Time:</label>
-                    <input type="time" id="startTime" name="startTime" required>
-                </div>
-                <div class="form-group">
-                    <label for="endTime">End Time:</label>
-                    <input type="time" id="endTime" name="endTime" required>
-                </div>
-                <div class="form-group">
-                    <label for="lapsCompleted">Number of Laps Completed:</label>
-                    <input type="number" id="lapsCompleted" name="lapsCompleted" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="poolLength">Pool Length (in meters or yards):</label>
-                    <select id="poolLength" name="poolLength" required>
-                        <option value="">Select Pool Length</option>
-                        <option value="25m">25 meters</option>
-                        <option value="50m">50 meters</option>
-                        <option value="25yd">25 yards</option>
-                        <option value="50yd">50 yards</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="swimStyle">Primary Swim Style:</label>
-                    <select id="swimStyle" name="swimStyle">
-                        <option value="">Select Swim Style (Optional)</option>
-                        <option value="freestyle">Freestyle</option>
-                        <option value="breaststroke">Breaststroke</option>
-                        <option value="backstroke">Backstroke</option>
-                        <option value="butterfly">Butterfly</option>
-                        <option value="medley">Individual Medley</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Notes (Optional):</label>
-                    <textarea id="notes" name="notes" placeholder="Any additional comments about your swim..."></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit">Submit Swim Record</button>
-                </div>
-                <div id="formMessage" class="message" style="display: none;"></div>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Swim & Earn. All rights reserved.</p>
-            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        </div>
-    </footer>
-
-    <script>
-        function toggleDropdown() {
-            document.getElementById("profileDropdown").classList.toggle("show");
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches('.profile-icon')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-
-        document.getElementById('recordSwimForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            const formMessage = document.getElementById('formMessage');
-            formMessage.style.display = 'none'; // Hide previous messages
-
-            // Get form data
-            const swimDate = document.getElementById('swimDate').value;
-            const startTime = document.getElementById('startTime').value;
-            const endTime = document.getElementById('endTime').value;
-            const lapsCompleted = parseInt(document.getElementById('lapsCompleted').value);
-            const poolLength = document.getElementById('poolLength').value;
-            const swimStyle = document.getElementById('swimStyle').value;
-            const notes = document.getElementById('notes').value;
-
-            // Basic validation (can be expanded)
-            if (!swimDate || !startTime || !endTime || !lapsCompleted || !poolLength) {
-                formMessage.textContent = 'Please fill in all required fields.';
-                formMessage.className = 'message error';
-                formMessage.style.display = 'block';
-                return;
-            }
-
-            if (lapsCompleted <= 0) {
-                formMessage.textContent = 'Number of laps must be at least 1.';
-                formMessage.className = 'message error';
-                formMessage.style.display = 'block';
-                return;
-            }
-
-            // Here you would typically send this data to a server
-            // For this example, we'll just simulate a successful submission
-            console.log({
-                swimDate,
-                startTime,
-                endTime,
-                lapsCompleted,
-                poolLength,
-                swimStyle,
-                notes
-            });
-
-            formMessage.textContent = 'Your swim record has been successfully submitted! We\'ll verify your laps shortly.';
-            formMessage.className = 'message success';
-            formMessage.style.display = 'block';
-
-            // Optionally, clear the form after successful submission
-            document.getElementById('recordSwimForm').reset();
-        });
-    </script>
-</body>
-</html>
+                    <input type="date" id="swimDate"
