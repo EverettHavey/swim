@@ -112,3 +112,9 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
