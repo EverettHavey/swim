@@ -161,6 +161,26 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label>Bonus Activities (select all that apply):</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="bonusNewTechnique" name="bonusActivity" value="1.50">
+                        <label for="bonusNewTechnique">Used a new technique ($1.50)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="bonusCoaching" name="bonusActivity" value="2.00">
+                        <label for="bonusCoaching">Coached a peer ($2.00)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="bonusLongSession" name="bonusActivity" value="3.00">
+                        <label for="bonusLongSession">Session over 60 minutes ($3.00)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="bonusStrengthTraining" name="bonusActivity" value="1.00">
+                        <label for="bonusStrengthTraining">Did dryland strength training ($1.00)</label>
+                    </div>
+                    </div>
                 <div class="form-group">
                     <label>Preferred Payment Method:</label>
                     <div class="checkbox-group">
@@ -210,23 +230,15 @@
         }
 
         // Define earnings rates per meter.
-        // You should adjust these based on your actual reward structure.
-        // For example: $0.004 per meter = $0.10 for 25m, $0.20 for 50m
-        const EARNINGS_RATE_PER_METER = 0.004; 
+        const EARNINGS_RATE_PER_METER = 0.004;
 
         function updateEarningsDisplay() {
             const earningsPerMeterDisplay = document.getElementById('earningsPerMeterDisplay');
-            earningsPerMeterDisplay.textContent = `$${EARNINGS_RATE_PER_METER.toFixed(3)}`; // Display with more precision
+            earningsPerMeterDisplay.textContent = `$${EARNINGS_RATE_PER_METER.toFixed(3)}`;
         }
 
         // Call updateEarningsDisplay on page load to set initial value
         document.addEventListener('DOMContentLoaded', updateEarningsDisplay);
-
-        // Pool length selection no longer affects earnings display per meter,
-        // as the rate is fixed per meter input.
-        // If you want different rates for different pool lengths,
-        // you would modify EARNINGS_RATE_PER_METER based on poolLength selection.
-
 
         document.getElementById('recordSwimForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
@@ -238,13 +250,19 @@
             const swimDate = document.getElementById('swimDate').value;
             const startTime = document.getElementById('startTime').value;
             const endTime = document.getElementById('endTime').value;
-            const distanceSwumMeters = parseInt(document.getElementById('distanceSwumMeters').value); // Changed from lapsCompleted
-            const poolLength = document.getElementById('poolLength').value; // Still captured for reference
+            const distanceSwumMeters = parseInt(document.getElementById('distanceSwumMeters').value);
+            const poolLength = document.getElementById('poolLength').value;
             const swimStyle = document.getElementById('swimStyle').value;
             const notes = document.getElementById('notes').value;
 
             const selectedPaymentMethods = Array.from(document.querySelectorAll('input[name="paymentMethod"]:checked'))
                                                 .map(cb => cb.value);
+
+            // Calculate bonus earnings from checkboxes
+            let bonusEarnings = 0;
+            Array.from(document.querySelectorAll('input[name="bonusActivity"]:checked')).forEach(checkbox => {
+                bonusEarnings += parseFloat(checkbox.value);
+            });
 
             // Basic validation (can be expanded)
             if (!swimDate || !startTime || !endTime || !distanceSwumMeters || !poolLength) {
@@ -268,8 +286,9 @@
                 return;
             }
 
-            // Calculate estimated earnings based on total meters
-            const estimatedEarnings = (distanceSwumMeters * EARNINGS_RATE_PER_METER).toFixed(2); // Format to 2 decimal places
+            // Calculate estimated earnings based on total meters and bonus activities
+            const earningsFromDistance = (distanceSwumMeters * EARNINGS_RATE_PER_METER);
+            const totalEstimatedEarnings = (earningsFromDistance + bonusEarnings).toFixed(2); // Sum and format to 2 decimal places
 
             // Here you would typically send this data to a server
             // For this example, we'll just simulate a successful submission
@@ -278,15 +297,16 @@
                 startTime,
                 endTime,
                 distanceSwumMeters,
-                poolLength, // Still logged for server-side reference if needed
+                poolLength,
                 swimStyle,
                 notes,
                 selectedPaymentMethods,
-                estimatedEarnings
+                bonusActivitiesSelected: Array.from(document.querySelectorAll('input[name="bonusActivity"]:checked')).map(cb => cb.id), // Log IDs of selected bonuses
+                totalEstimatedEarnings
             });
 
             formMessage.innerHTML = `Your swim record has been successfully submitted! <br>
-                                     Estimated earnings: <strong>$${estimatedEarnings}</strong>. <br>
+                                     Estimated earnings: <strong>$${totalEstimatedEarnings}</strong>. <br>
                                      You will receive your payment via ${selectedPaymentMethods.join(' and ')} in 2-3 business days.`;
             formMessage.className = 'message success';
             formMessage.style.display = 'block';
