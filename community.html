@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swim & Earn - Community Chat</title>
+    <link rel="stylesheet" href="styles/community.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Swim & Earn</h1>
+            <p class="tagline">Your Laps, Our Rewards.</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="record.html">Record Swimming</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+           <div class="profile-dropdown">
+                <i class="fa fa-user profile-icon" onclick="toggleDropdown()"></i>
+                <div id="profileDropdown" class="dropdown-content">
+                    <a href="#">Login</a>
+                    <a href="#">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="community-chat-section">
+        <div class="container">
+            <h2>Community Chat</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message received">
+                        <span class="username">Ethan Miller</span> Hello everyone!
+                    </div>
+                    <div class="message sent">
+                        <span class="username">You:</span> Hi Ethan! Great to see you here.
+                    </div>
+                    <div class="message received">
+                        <span class="username">Daniel Rodriguez:</span> Anyone planning a swim today?
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="Type your message...">
+                    <button id="send-button"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Swim & Earn. All rights reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-icon')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // --- Frontend Chat Logic (requires backend for full functionality) ---
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+
+        // This function would send the message to your backend
+        sendButton.addEventListener('click', () => {
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                // In a real application, you would send this message to your server
+                // Example: socket.emit('sendMessage', messageText);
+
+                // For demonstration, we'll just add it to the chat UI as a 'sent' message
+                addMessage(messageText, 'You', 'sent');
+                messageInput.value = ''; // Clear the input field
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+            }
+        });
+
+        // Allows sending message with Enter key
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+
+        // Function to add a message to the chat display
+        function addMessage(message, username, type) { // type can be 'sent' or 'received'
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', type);
+            messageDiv.innerHTML = `<span class="username">${username}:</span> ${message}`;
+            chatMessages.appendChild(messageDiv);
+        }
+
+        // --- Example of receiving a message (would come from your backend) ---
+        // setTimeout(() => {
+        //     addMessage("Hey, anyone online?", "Alex", "received");
+        //     chatMessages.scrollTop = chatMessages.scrollHeight;
+        // }, 3000);
+    </script>
+</body>
+</html>

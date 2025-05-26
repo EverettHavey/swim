@@ -1,0 +1,392 @@
+/* General Body and Container Styles (assuming these are already in your style.css) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header .tagline {
+    font-size: 1.2rem;
+    margin-top: 5px;
+}
+
+/* Navigation Styles */
+nav {
+    background-color: #0056b3;
+    padding: 0.8rem 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 25px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #a0d1ff;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.profile-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+/* Hero Section (assuming these are already in your style.css) */
+.hero {
+    background-color: #e2f2ff;
+    padding: 60px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.hero .hero-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero .description {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+.hero .record-button {
+    background-color: #28a745;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero .record-button:hover {
+    background-color: #218838;
+}
+
+/* How It Works Section (assuming these are already in your style.css) */
+.how-it-works {
+    padding: 60px 0;
+    background-color: #fff;
+    text-align: center;
+}
+
+.how-it-works h2 {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 40px;
+}
+
+.how-it-works ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.how-it-works li {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 15px;
+    width: 280px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.how-it-works li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.how-it-works li strong {
+    color: #007bff;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Footer Styles (assuming these are already in your style.css) */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #a0d1ff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- NEW STYLES FOR COMMUNITY CHAT --- */
+
+.community-chat-section {
+    padding: 40px 0;
+    background-color: #f9f9f9;
+}
+
+.community-chat-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+.chat-container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 600px; /* Adjust as needed */
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.chat-messages {
+    flex-grow: 1; /* Allows messages to take up available space */
+    padding: 20px;
+    overflow-y: auto; /* Enables scrolling for messages */
+    border-bottom: 1px solid #eee;
+    background-color: #eef5ff;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.message .username {
+    font-weight: bold;
+    margin-right: 5px;
+    color: #0056b3;
+}
+
+.message.received {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    align-self: flex-start;
+    margin-right: auto; /* Pushes received messages to the left */
+}
+
+.message.sent {
+    background-color: #d1e7ff; /* Light blue for sent messages */
+    border: 1px solid #a0d1ff;
+    align-self: flex-end;
+    margin-left: auto; /* Pushes sent messages to the right */
+    color: #333;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    background-color: #f0f0f0;
+}
+
+.chat-input input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chat-input input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+.chat-input button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input button:hover {
+    background-color: #0056b3;
+}
+
+.chat-input button .fas {
+    margin-right: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .nav-container {
+        flex-direction: column;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .how-it-works ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .how-it-works li {
+        width: 90%;
+        margin: 10px 0;
+    }
+
+    .chat-container {
+        height: 500px; /* Smaller height for mobile */
+    }
+
+    .message {
+        max-width: 85%;
+    }
+
+    .chat-input {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .chat-input input[type="text"] {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .chat-input button {
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+    }
+}
