@@ -1,0 +1,114 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+.tagline {
+    font-style: italic;
+    color: #ddd;
+}
+
+.hero {
+    background-color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.hero h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.hero .description {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.record-button {
+    background-color: #28a745;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.record-button:hover {
+    background-color: #218838;
+}
+
+.how-it-works {
+    background-color: #e9ecef;
+    padding: 40px 0;
+}
+
+.how-it-works h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.how-it-works ul {
+    list-style: none;
+    padding: 0;
+}
+
+.how-it-works li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.how-it-works li strong {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.how-it-works li::before {
+    content: "\2192"; /* Right arrow */
+    position: absolute;
+    left: 0;
+    color: #007bff;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
