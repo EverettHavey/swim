@@ -1,16 +1,3 @@
-I've updated the "Record Your Swim" page to dynamically display the cash earned per lap based on the selected pool length.
-
-Here's how I've implemented it:
-
-New Span for Display: I've added a <span id="earningsPerLapDisplay"> next to the "Number of Laps Completed" label to show the current earnings rate.
-JavaScript Logic for Display:
-A updateEarningsDisplay() function has been created. This function reads the selected poolLength and updates the text content of earningsPerLapDisplay accordingly.
-This function is called initially when the page loads.
-An event listener is added to the poolLength select box, so updateEarningsDisplay() is called every time the user changes the pool length, providing real-time feedback.
-Now, users will instantly see how much they earn per lap as they select the pool length.
-
-HTML
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -315,7 +302,9 @@ HTML
                 estimatedEarnings
             });
 
-            formMessage.textContent = `Your swim record has been successfully submitted! Estimated earnings: $${estimatedEarnings}. We'll verify your laps shortly and process payment via ${selectedPaymentMethods.join(' and ')}.`;
+            formMessage.innerHTML = `Your swim record has been successfully submitted! <br>
+                                     Estimated earnings: <strong>$${estimatedEarnings}</strong>. <br>
+                                     You will receive your payment via ${selectedPaymentMethods.join(' and ')} in 2-3 business days.`;
             formMessage.className = 'message success';
             formMessage.style.display = 'block';
 
