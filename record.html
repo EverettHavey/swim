@@ -135,11 +135,11 @@
                     <input type="time" id="endTime" name="endTime" required>
                 </div>
                 <div class="form-group">
-                    <label for="lapsCompleted">Number of Laps Completed:</label>
-                    <input type="number" id="lapsCompleted" name="lapsCompleted" min="1" required>
+                    <label for="distanceSwumMeters">Total Distance Swum (in meters):</label>
+                    <input type="number" id="distanceSwumMeters" name="distanceSwumMeters" min="1" required>
                 </div>
                 <div class="form-group">
-                    <label for="poolLength">Pool Length (in meters or yards):</label>
+                    <label for="poolLength">Pool Length (for reference, does not affect earnings directly based on distance input):</label>
                     <select id="poolLength" name="poolLength" required>
                         <option value="">Select Pool Length</option>
                         <option value="25m">25 meters</option>
@@ -147,7 +147,7 @@
                         <option value="25yd">25 yards</option>
                         <option value="50yd">50 yards</option>
                     </select>
-                    <small>Earnings per lap: <span id="earningsPerLapDisplay">$0.00</span></small>
+                    <small>Approx. Earnings per meter: <span id="earningsPerMeterDisplay">$0.00</span></small>
                 </div>
                 <div class="form-group">
                     <label for="swimStyle">Primary Swim Style:</label>
@@ -209,29 +209,23 @@
             }
         }
 
-        function updateEarningsDisplay() {
-            const poolLength = document.getElementById('poolLength').value;
-            const earningsPerLapDisplay = document.getElementById('earningsPerLapDisplay');
-            let earningsPerLap = 0;
+        // Define earnings rates per meter.
+        // You should adjust these based on your actual reward structure.
+        // For example: $0.004 per meter = $0.10 for 25m, $0.20 for 50m
+        const EARNINGS_RATE_PER_METER = 0.004; 
 
-            switch (poolLength) {
-                case '25m':
-                case '25yd':
-                    earningsPerLap = 0.10; // $0.10 per 25-meter/yard lap
-                    break;
-                case '50m':
-                case '50yd':
-                    earningsPerLap = 0.20; // $0.20 per 50-meter/yard lap
-                    break;
-            }
-            earningsPerLapDisplay.textContent = `$${earningsPerLap.toFixed(2)}`;
+        function updateEarningsDisplay() {
+            const earningsPerMeterDisplay = document.getElementById('earningsPerMeterDisplay');
+            earningsPerMeterDisplay.textContent = `$${EARNINGS_RATE_PER_METER.toFixed(3)}`; // Display with more precision
         }
 
         // Call updateEarningsDisplay on page load to set initial value
         document.addEventListener('DOMContentLoaded', updateEarningsDisplay);
 
-        // Update earnings display when pool length changes
-        document.getElementById('poolLength').addEventListener('change', updateEarningsDisplay);
+        // Pool length selection no longer affects earnings display per meter,
+        // as the rate is fixed per meter input.
+        // If you want different rates for different pool lengths,
+        // you would modify EARNINGS_RATE_PER_METER based on poolLength selection.
 
 
         document.getElementById('recordSwimForm').addEventListener('submit', function(event) {
@@ -244,8 +238,8 @@
             const swimDate = document.getElementById('swimDate').value;
             const startTime = document.getElementById('startTime').value;
             const endTime = document.getElementById('endTime').value;
-            const lapsCompleted = parseInt(document.getElementById('lapsCompleted').value);
-            const poolLength = document.getElementById('poolLength').value;
+            const distanceSwumMeters = parseInt(document.getElementById('distanceSwumMeters').value); // Changed from lapsCompleted
+            const poolLength = document.getElementById('poolLength').value; // Still captured for reference
             const swimStyle = document.getElementById('swimStyle').value;
             const notes = document.getElementById('notes').value;
 
@@ -253,15 +247,15 @@
                                                 .map(cb => cb.value);
 
             // Basic validation (can be expanded)
-            if (!swimDate || !startTime || !endTime || !lapsCompleted || !poolLength) {
+            if (!swimDate || !startTime || !endTime || !distanceSwumMeters || !poolLength) {
                 formMessage.textContent = 'Please fill in all required fields.';
                 formMessage.className = 'message error';
                 formMessage.style.display = 'block';
                 return;
             }
 
-            if (lapsCompleted <= 0) {
-                formMessage.textContent = 'Number of laps must be at least 1.';
+            if (distanceSwumMeters <= 0) {
+                formMessage.textContent = 'Total distance swum must be at least 1 meter.';
                 formMessage.className = 'message error';
                 formMessage.style.display = 'block';
                 return;
@@ -274,19 +268,8 @@
                 return;
             }
 
-            // Calculate estimated earnings
-            let earningsPerLap = 0;
-            switch (poolLength) {
-                case '25m':
-                case '25yd':
-                    earningsPerLap = 0.10; // $0.10 per 25-meter/yard lap
-                    break;
-                case '50m':
-                case '50yd':
-                    earningsPerLap = 0.20; // $0.20 per 50-meter/yard lap
-                    break;
-            }
-            const estimatedEarnings = (lapsCompleted * earningsPerLap).toFixed(2); // Format to 2 decimal places
+            // Calculate estimated earnings based on total meters
+            const estimatedEarnings = (distanceSwumMeters * EARNINGS_RATE_PER_METER).toFixed(2); // Format to 2 decimal places
 
             // Here you would typically send this data to a server
             // For this example, we'll just simulate a successful submission
@@ -294,8 +277,8 @@
                 swimDate,
                 startTime,
                 endTime,
-                lapsCompleted,
-                poolLength,
+                distanceSwumMeters,
+                poolLength, // Still logged for server-side reference if needed
                 swimStyle,
                 notes,
                 selectedPaymentMethods,
@@ -310,7 +293,7 @@
 
             // Optionally, clear the form after successful submission
             document.getElementById('recordSwimForm').reset();
-            // Reset earnings display after form reset
+            // Ensure the earnings display is reset or updated if necessary (e.g., if it was dynamic based on other inputs)
             updateEarningsDisplay();
         });
     </script>
