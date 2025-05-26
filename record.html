@@ -1,3 +1,16 @@
+I've updated the "Record Your Swim" page to dynamically display the cash earned per lap based on the selected pool length.
+
+Here's how I've implemented it:
+
+New Span for Display: I've added a <span id="earningsPerLapDisplay"> next to the "Number of Laps Completed" label to show the current earnings rate.
+JavaScript Logic for Display:
+A updateEarningsDisplay() function has been created. This function reads the selected poolLength and updates the text content of earningsPerLapDisplay accordingly.
+This function is called initially when the page loads.
+An event listener is added to the poolLength select box, so updateEarningsDisplay() is called every time the user changes the pool length, providing real-time feedback.
+Now, users will instantly see how much they earn per lap as they select the pool length.
+
+HTML
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,6 +160,7 @@
                         <option value="25yd">25 yards</option>
                         <option value="50yd">50 yards</option>
                     </select>
+                    <small>Earnings per lap: <span id="earningsPerLapDisplay">$0.00</span></small>
                 </div>
                 <div class="form-group">
                     <label for="swimStyle">Primary Swim Style:</label>
@@ -207,6 +221,31 @@
                 }
             }
         }
+
+        function updateEarningsDisplay() {
+            const poolLength = document.getElementById('poolLength').value;
+            const earningsPerLapDisplay = document.getElementById('earningsPerLapDisplay');
+            let earningsPerLap = 0;
+
+            switch (poolLength) {
+                case '25m':
+                case '25yd':
+                    earningsPerLap = 0.10; // $0.10 per 25-meter/yard lap
+                    break;
+                case '50m':
+                case '50yd':
+                    earningsPerLap = 0.20; // $0.20 per 50-meter/yard lap
+                    break;
+            }
+            earningsPerLapDisplay.textContent = `$${earningsPerLap.toFixed(2)}`;
+        }
+
+        // Call updateEarningsDisplay on page load to set initial value
+        document.addEventListener('DOMContentLoaded', updateEarningsDisplay);
+
+        // Update earnings display when pool length changes
+        document.getElementById('poolLength').addEventListener('change', updateEarningsDisplay);
+
 
         document.getElementById('recordSwimForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
@@ -282,6 +321,8 @@
 
             // Optionally, clear the form after successful submission
             document.getElementById('recordSwimForm').reset();
+            // Reset earnings display after form reset
+            updateEarningsDisplay();
         });
     </script>
 </body>
