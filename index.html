@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swim & Earn - Get Paid to Swim</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
@@ -14,10 +15,27 @@
         </div>
     </header>
 
+    <nav>
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Record Swimming</a></li>
+            </ul>
+             <div class="profile-dropdown">
+                <i class="fa fa-user profile-icon" onclick="toggleDropdown()"></i>
+                <div id="profileDropdown" class="dropdown-content">
+                    <a href="#">Login</a>
+                    <a href="#">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <section class="hero">
         <div class="container">
             <h2>Turn Your Swim into Earnings</h2>
-            <img src="images/personswimming.jpeg" alt="Person swimming laps" class="hero-image">
+             <img src="images/personswimming.jpeg" alt="Person swimming laps" class="hero-image">
             <p class="description">
                 We believe in the power of healthy living and the dedication of swimmers. Our program rewards your commitment to fitness by paying you for every lap you complete. By tracking and verifying your swimming activity, we contribute to a healthier community and gather valuable data for aquatic wellness research. Join Swim & Earn today and make your workout pay off!
             </p>
@@ -44,6 +62,26 @@
             <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
         </div>
     </footer>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-icon')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
